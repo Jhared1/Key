@@ -1,0 +1,27 @@
+import java.security.SecureRandom;
+import java.math.BigInteger;
+
+public class KeyGenerator {
+
+    public static void main(String[] args) {
+        // Generate a random key
+        String key = generateRandomKey(16); // You can adjust the length of the key as needed
+        System.out.println("Generated Key: " + key);
+    }
+
+    // Method to generate a random key of specified length
+    public static String generateRandomKey(int length) {
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] bytes = new byte[length];
+        secureRandom.nextBytes(bytes);
+        BigInteger bigInt = new BigInteger(1, bytes);
+        // Convert the random bytes into a hexadecimal string
+        String key = bigInt.toString(16);
+        // Pad the string with zeros if necessary
+        while (key.length() < length * 2) {
+            key = "0" + key;
+        }
+        return key;
+    }
+}
+
